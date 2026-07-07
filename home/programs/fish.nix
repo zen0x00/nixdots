@@ -8,7 +8,7 @@
       set fish_greeting
 
       if status is-interactive
-        nitch
+        fastfetch
       end
     '';
 
@@ -52,13 +52,4 @@
     enable = true;
     enableFishIntegration = true;
   };
-
-  home.packages = with pkgs; [
-    nitch
-    grc
-    bat
-    fd
-    ripgrep
-    jq
-  ];
 }
