@@ -58,7 +58,6 @@
 
     # Editors
     vscode
-    fetch
 
     # Desktop
     glib

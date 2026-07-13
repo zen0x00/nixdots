@@ -2,13 +2,13 @@
   description = "My NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
     # Pinned pre-2.18 nixpkgs, used only to grab an older fontconfig build.
     # fontconfig 2.18.x ships 48-guessfamily.conf with `xsi:nil` attrs that
     # its own XML parser doesn't understand, spamming startup logs.
     nixpkgs-fontconfig-fix.url = "github:nixos/nixpkgs?ref=nixos-24.05";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager?ref=release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
