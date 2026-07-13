@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 
 {
   imports = [
@@ -7,8 +7,11 @@
     ./programs/fish.nix
     ./programs/fastfetch.nix
     ./programs/noctalia.nix
+    ./programs/gtk.nix
     ./programs/neovim
+    ./programs/zathura.nix
     ./packages.nix
+    ./mime.nix
   ];
 
   home.username = "aman";

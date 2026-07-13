@@ -14,9 +14,26 @@
     sassc
     nodejs
     github-cli
+    heroic
+    mpv
+    dust
+    duf
+    tealdeer
+    ncdu
+    just
+    p7zip
+    rsync
+    psmisc
+    wl-clipboard
+    parsec-bin
+    unityhub
 
     # Rust
     rustup
+
+    # Flutter
+    flutter
+    android-tools
 
     # AI
     claude-code
@@ -24,6 +41,13 @@
 
     # Files
     nautilus
+    file-roller
+    gnome-disk-utility
+    cliphist
+    ffmpegthumbnailer
+    poppler-utils
+    hyprshot
+    satty
 
     # Browser
     librewolf
@@ -34,11 +58,27 @@
 
     # Editors
     vscode
+    fetch
 
     # Desktop
     glib
+    loupe
     signal-desktop
     xwayland-satellite
+    (
+      (wrapOBS.override {
+        obs-studio = obs-studio.override { cudaSupport = true; };
+      })
+      {
+        plugins = with obs-studio-plugins; [
+        wlrobs
+        obs-vkcapture
+        obs-pipewire-audio-capture
+        obs-gstreamer
+          obs-backgroundremoval
+        ];
+      }
+    )
 
     # Flake packages
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default

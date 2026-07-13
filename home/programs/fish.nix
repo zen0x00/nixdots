@@ -31,6 +31,8 @@
       gd = "git diff";
       gco = "git checkout";
       hms = "home-manager switch --flake ~/nixdots";
+      nrs-bit = "sudo nixos-rebuild switch --flake ~/nixdots#bit";
+      nrs-byte = "sudo nixos-rebuild switch --flake ~/nixdots#byte";
       nfc = "nix flake check --no-build";
       ".." = "cd ..";
       "..." = "cd ../..";

@@ -57,7 +57,7 @@
     })
 
     local steam_class = "^(steam|Steam|steamwebhelper)$"
-    local unityhub_class = "^(unityhub-bin|Unity Hub)$"
+    local unityhub_class = "^(unityhub|Unity Hub)$"
     local unity_editor_popup_title = "^(?!.* - Unity( .*)?$).+"
 
     hl.window_rule({
@@ -72,8 +72,8 @@
 
     hl.window_rule({
       name = "steam-main-size",
-      match = { class = steam_class, title = "^Steam$" },
-      size = { 1400, 800 },
+      match = { class = steam_class },
+      size = { 1600, 900 },
     })
 
     hl.window_rule({

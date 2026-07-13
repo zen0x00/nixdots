@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.hyprland = {
@@ -9,5 +9,8 @@
     xwayland.enable = true;
   };
 
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 }
