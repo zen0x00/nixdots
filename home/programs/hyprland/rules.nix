@@ -57,8 +57,6 @@
     })
 
     local steam_class = "^(steam|Steam|steamwebhelper)$"
-    local unityhub_class = "^(unityhub|Unity Hub)$"
-    local unity_editor_popup_title = "^(?!.* - Unity( .*)?$).+"
 
     hl.window_rule({
       name = "steam-floating",
@@ -89,20 +87,9 @@
     })
 
     hl.window_rule({
-      name = "float-files",
+      name = "floats",
       match = {
-        class = "^(org.gnome.Nautilus|thunar)$",
-        fullscreen = false,
-      },
-      float = true,
-      center = true,
-      size = { 1100, 700 },
-    })
-
-    hl.window_rule({
-      name = "float-unityhub",
-      match = {
-        class = unityhub_class,
+        class = "^(org.gnome.Nautilus|thunar|org.gnome.LoupeD)$",
         fullscreen = false,
       },
       float = true,
@@ -120,17 +107,6 @@
       float = true,
       center = true,
       size = { 900, 600 },
-    })
-
-    hl.window_rule({
-      name = "center-unity-popups",
-      match = {
-        class = "^Unity$",
-        title = unity_editor_popup_title,
-        fullscreen = false,
-      },
-      float = true,
-      center = true,
     })
 
     hl.window_rule({
@@ -209,7 +185,7 @@
     })
     hl.window_rule({
       name = "ws4",
-      match = { class = "^(unityhub|Unity Hub|Unity|Spotify)$" },
+      match = { class = "^(Spotify)$" },
       workspace = "4",
     })
     hl.window_rule({

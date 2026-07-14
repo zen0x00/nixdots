@@ -1,15 +1,8 @@
-{ pkgs, config, inputs, ... }:
+{ ... }:
 
 {
   imports = [
-    ./programs/kitty.nix
-    ./programs/hyprland
-    ./programs/fish.nix
-    ./programs/fastfetch.nix
-    ./programs/noctalia.nix
-    ./programs/gtk.nix
-    ./programs/neovim
-    ./programs/zathura.nix
+    ./programs
     ./packages.nix
     ./mime.nix
   ];

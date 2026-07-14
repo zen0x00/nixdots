@@ -25,8 +25,7 @@
     rsync
     psmisc
     wl-clipboard
-    parsec-bin
-    unityhub
+    nitch
 
     # Rust
     rustup
@@ -63,7 +62,6 @@
     glib
     loupe
     signal-desktop
-    xwayland-satellite
     (
       (wrapOBS.override {
         obs-studio = obs-studio.override { cudaSupport = true; };
