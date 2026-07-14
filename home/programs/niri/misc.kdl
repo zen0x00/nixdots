@@ -1,0 +1,6 @@
+prefer-no-csd
+spawn-at-startup "noctalia"
+
+debug {
+    honor-xdg-activation-with-invalid-serial
+}

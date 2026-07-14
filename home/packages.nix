@@ -38,6 +38,9 @@
     claude-code
     opencode
 
+    #Niri
+    xwayland-satellite
+
     # Files
     nautilus
     file-roller
@@ -45,7 +48,6 @@
     cliphist
     ffmpegthumbnailer
     poppler-utils
-    hyprshot
     satty
 
     # Browser

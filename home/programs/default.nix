@@ -3,7 +3,7 @@
 {
   imports = [
     ./kitty.nix
-    ./hyprland
+    ./niri
     ./fish.nix
     ./fastfetch.nix
     ./noctalia.nix
