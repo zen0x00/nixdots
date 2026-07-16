@@ -5,7 +5,7 @@
             gaps_in = 10,
             gaps_out = 20,
             gaps_workspaces = 10,
-            border_size = 1,
+            border_size = 2,
             col = {
                 active_border = "rgba(595959aa)",
                 inactive_border = "rgba(595959aa)",
@@ -15,7 +15,7 @@
             layout = "dwindle",
         },
         decoration = {
-            rounding = 14,
+            rounding = 12,
             rounding_power = 2.6,
             active_opacity = 0.85,
             inactive_opacity = 0.75,

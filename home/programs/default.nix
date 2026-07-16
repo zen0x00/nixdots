@@ -10,5 +10,6 @@
     ./gtk.nix
     ./neovim
     ./zathura.nix
+    ./zen.nix
   ];
 }

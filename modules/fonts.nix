@@ -6,7 +6,6 @@
     droid-sans-mono
   ]) ++ (with pkgs; [
     noto-fonts
-    noto-fonts-extra
   ]);
 
   fonts.fontconfig = {

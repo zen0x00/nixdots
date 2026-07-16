@@ -48,8 +48,6 @@
     poppler-utils
     satty
 
-    # Browser
-    librewolf
 
     # Theming
     pywalfox-native

@@ -3,7 +3,7 @@
     return {
       terminal = "kitty",
       file_manager = "nautilus",
-      browser = "librewolf",
+      browser = "zen",
       menu = "noctalia msg panel-toggle launcher",
       cc = "noctalia msg panel-toggle control-center",
     }

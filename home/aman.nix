@@ -13,4 +13,9 @@
   home.sessionPath = [ "$HOME/.local/bin" ];
   programs.man.generateCaches = false;
   programs.home-manager.enable = true;
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 }
