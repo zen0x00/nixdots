@@ -3,6 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    import-tree.url = "github:vic/import-tree";
+
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,16 +33,5 @@
   };
 
   outputs =
-    inputs@{ nixpkgs, home-manager, ... }:
-    {
-      nixosConfigurations.bit = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-
-        modules = [
-          ./hosts/bit/configuration.nix
-          home-manager.nixosModules.home-manager
-        ];
-      };
-    };
+    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }
