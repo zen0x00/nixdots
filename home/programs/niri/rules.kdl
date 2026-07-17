@@ -1,0 +1,56 @@
+window-rule {
+    geometry-corner-radius 20
+    clip-to-geometry true
+    draw-border-with-background false
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match is-active=false
+    opacity 0.95
+}
+
+layer-rule {
+    match namespace="^quickshell$"
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="dms:blurwallpaper"
+    place-within-backdrop true
+}
+
+window-rule {
+    match app-id=r#"org.quickshell$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id="org.zen0x.floating-terminal"
+    open-floating true
+    default-column-width { proportion 0.6; }
+}
+
+window-rule {
+    match app-id=r#"^zen"#
+    match app-id="kitty"
+    match app-id=r#"^[Cc]ode"#
+    default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="org.gnome.Nautilus"
+    match app-id="org.pwmt.zathura"
+    match app-id="org.gnome.Loupe"
+    match app-id="steam"
+    open-floating true
+}
+
+window-rule {
+    match title="Picture.in.[Pp]icture"
+    open-floating true
+    default-floating-position x=16 y=16 relative-to="bottom-right"
+}
+

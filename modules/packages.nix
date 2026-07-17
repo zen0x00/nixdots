@@ -9,5 +9,9 @@
     libsecret     # libraries
     libimobiledevice
     ifuse
+    piper         # logitech mouse config GUI
+    unityhub      # Unity game engine hub
   ];
+
+  services.ratbagd.enable = true;  # daemon piper talks to
 }

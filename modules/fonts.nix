@@ -6,6 +6,7 @@
     droid-sans-mono
   ]) ++ (with pkgs; [
     noto-fonts
+    maple-mono.NF
   ]);
 
   fonts.fontconfig = {

@@ -6,10 +6,6 @@
             gaps_out = 20,
             gaps_workspaces = 10,
             border_size = 2,
-            col = {
-                active_border = "rgba(595959aa)",
-                inactive_border = "rgba(595959aa)",
-            },
             resize_on_border = true,
             allow_tearing = false,
             layout = "dwindle",
@@ -25,9 +21,11 @@
             dim_special = 0.18,
             shadow = {
                 enabled = true,
-                range = 20,
+                range = 25,
                 render_power = 3,
-                offset = { 0, 4 },
+                offset = { 0, 6 },
+                color = "rgba(000000aa)",
+                color_inactive = "rgba(00000066)",
             },
             blur = {
                 enabled = true,
@@ -61,8 +59,8 @@
     hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
     hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
     hl.animation({ leaf = "windows", enabled = true, speed = 3.79, bezier = "easeOutQuint" })
-    hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, bezier = "easeOutQuint", style = "popin 87%" })
-    hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
+    hl.animation({ leaf = "windowsIn", enabled = true, speed = 6, bezier = "easeOutQuint", style = "slide bottom" })
+    hl.animation({ leaf = "windowsOut", enabled = true, speed = 5, bezier = "easeInOutCubic", style = "slide top" })
     hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
     hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
     hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
@@ -71,7 +69,7 @@
     hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
     hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
     hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
-    hl.animation({ leaf = "workspaces", enabled = false })
+    hl.animation({ leaf = "workspaces", enabled = true, speed = 3.5, bezier = "easeOutQuint", style = "slidevert" })
     hl.animation({
         leaf = "specialWorkspace",
         enabled = true,

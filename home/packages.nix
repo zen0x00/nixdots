@@ -23,9 +23,9 @@
     just
     p7zip
     rsync
+    socat
     psmisc
     wl-clipboard
-    nitch
     zenity
 
     # Rust

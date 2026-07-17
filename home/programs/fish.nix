@@ -9,7 +9,7 @@
       set fish_greeting
 
       if status is-interactive
-        nitch
+        fastfetch
       end
     '';
 
