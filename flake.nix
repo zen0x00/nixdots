@@ -28,6 +28,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    abyssal-gtk-theme.url = "github:rxyenv/abyssal-gtk-theme";
+
     elephant.url = "github:abenz1267/elephant";
 
     walker = {
