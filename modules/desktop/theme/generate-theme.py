@@ -18,6 +18,7 @@ TEMPLATE_TARGETS = [
     ("templates/swayosd/style.css.tpl",        "~/.config/swayosd/style.css"),
     ("templates/swayosd/config.toml.tpl",      "~/.config/swayosd/config.toml"),
     ("templates/swaync/colors.css.tpl",        "~/.config/swaync/colors.css"),
+    ("templates/walker/colors.css.tpl",        "~/.config/walker/colors.css"),
 ]
 
 

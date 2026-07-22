@@ -28,26 +28,21 @@
 
         config = {
           activation.close_when_open = true;
-          theme = "catppuccin";
+          theme = "zen0x";
           hide_action_hints = true;
           hide_quick_activation = true;
           ui = {
             width = 600;
             hide_when_single_result = false;
             centered = true;
+            max_entries = 8;
             };
         };
 
-        themes.catppuccin.style = ''
-          @define-color window_bg_color  #1e1e2e;
-          @define-color accent_bg_color  #313244;
-          @define-color theme_fg_color   #cdd6f4;
-          @define-color accent_color     #89b4fa;
-          @define-color muted_color      #6c7086;
-          @define-color error_bg_color   #f38ba8;
-          @define-color error_fg_color   #1e1e2e;
+        themes.zen0x.style = ''
+          @import "/home/aman/.config/walker/colors.css";
 
-          * { all: unset; }
+          * { all: unset; font-family: "Maple Mono NF"; }
 
           .box-wrapper {
             background: alpha(@window_bg_color, 0.8);
@@ -62,7 +57,7 @@
             color: @theme_fg_color;
             caret-color: @accent_color;
             font-family: "Maple Mono NF";
-            font-size: 16px;
+            font-size: 18px;
             padding: 10px 14px 14px 14px;
           }
 
@@ -75,7 +70,7 @@
           }
 
           .item-box {
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 10px 12px;
           }
 
@@ -85,7 +80,7 @@
           }
 
           .item-subtext {
-            font-size: 12px;
+            font-size: 14px;
             color: @muted_color;
             opacity: 1;
           }

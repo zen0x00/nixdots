@@ -11,7 +11,7 @@ ENTRIES=(
 )
 
 selected=$(printf '%s\n' "${ENTRIES[@]}" \
-    | walker --dmenu --placeholder "Power")
+    | walker --dmenu --nosearch --width 280 --maxheight 260)
 
 case "$selected" in
     *Lock)      hyprlock ;;

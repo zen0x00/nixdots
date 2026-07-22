@@ -14,6 +14,7 @@
         "zen0x-capture-ocr"
         "zen0x-capture-screenrecording"
         "zen0x-capture-screenshot"
+        "zen0x-clipboard"
         "zen0x-default-browser"
         "zen0x-default-editor"
         "zen0x-default-terminal"
@@ -29,7 +30,9 @@
         "zen0x-theme-reload"
         "zen0x-toggle-bluetooth"
         "zen0x-toggle-mute"
+        "zen0x-toggle-nightlight"
         "zen0x-toggle-wifi"
+        "zen0x-set-wallpaper"
       ];
 
       makeScript =
@@ -58,11 +61,13 @@
           impala
           rofi
           swayosd
-          mako
+          swaynotificationcenter
           swaybg
           jq
           python3
           hyprpicker
+          hyprsunset
+          cliphist
           tesseract
           perl
           wl-clipboard

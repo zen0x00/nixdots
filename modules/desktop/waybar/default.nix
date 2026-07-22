@@ -23,13 +23,38 @@
             modules-left = [ "hyprland/workspaces" ];
             modules-center = [ "clock" ];
             modules-right = [
+              "custom/recording"
               "tray"
+              "cpu"
+              "memory"
               "network"
               "bluetooth"
               "pulseaudio"
               "battery"
               "custom/power"
             ];
+
+            "custom/recording" = {
+              exec = "pid_file=\"$XDG_RUNTIME_DIR/zen0x-screenrecord.pid\"; if [ -f \"$pid_file\" ] && kill -0 \"$(cat \"$pid_file\")\" 2>/dev/null; then echo '󰑊'; fi";
+              interval = 2;
+              format = "{}";
+              tooltip = false;
+              on-click = "zen0x-capture-screenrecording fullscreen";
+            };
+
+            cpu = {
+              format = "󰻠 {usage}%";
+              interval = 5;
+              tooltip = false;
+              on-click = "zen0x-launch-tui btop";
+            };
+
+            memory = {
+              format = "󰍛 {percentage}%";
+              interval = 5;
+              tooltip-format = "{used:0.1f} / {total:0.1f} GiB";
+              on-click = "zen0x-launch-tui btop";
+            };
 
             "hyprland/workspaces" = {
               on-click = "activate";
@@ -165,7 +190,7 @@
           window#waybar {
             background: alpha(@panelAlt, 0.88);
             border: 1px solid alpha(@accent, 0.45);
-            border-radius: 14px;
+            border-radius: 16px;
             color: @fg;
           }
 
@@ -193,10 +218,19 @@
           #bluetooth,
           #battery,
           #custom-power,
+          #custom-recording,
           #tray {
             font-size: 16px;
             padding: 0 10px;
             margin: 0 3px;
+          }
+
+          #cpu,
+          #memory {
+            font-size: 13px;
+            padding: 0 8px;
+            margin: 0 3px;
+            color: @muted;
           }
 
           #pulseaudio,
@@ -204,6 +238,10 @@
           #bluetooth,
           #battery {
             color: @fg;
+          }
+
+          #custom-recording {
+            color: @danger;
           }
 
           #clock {
@@ -229,7 +267,7 @@
           #tray > .needs-attention {
             -gtk-icon-effect: highlight;
             background: alpha(@danger, 0.12);
-            border-radius: 6px;
+            border-radius: 8px;
           }
         '';
       };

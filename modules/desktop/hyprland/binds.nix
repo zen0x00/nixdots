@@ -45,16 +45,37 @@
             hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
         end
 
-        for i = 1, 5 do
-            local scratchpad = "scratchpad" .. i
-            hl.bind(mainMod .. " + ALT + " .. i, hl.dsp.workspace.toggle_special(scratchpad))
+        -- Semantic scratchpads: toggle special workspace, autolaunch app when empty
+        -- (window rules pin the org.zen0x.scratch-* classes to their special workspace)
+        local scratchpads = {
+            { key = 1, name = "term",    cmd = programs.terminal .. " --class org.zen0x.scratch-term" },
+            { key = 2, name = "notes",   cmd = programs.terminal .. " --class org.zen0x.scratch-notes -e hx" },
+            { key = 3, name = "files",   cmd = programs.terminal .. " --class org.zen0x.scratch-files -e yazi" },
+            { key = 4, name = "mixer",   cmd = programs.terminal .. " --class org.zen0x.scratch-mixer -e wiremix" },
+            { key = 5, name = "monitor", cmd = programs.terminal .. " --class org.zen0x.scratch-monitor -e btop" },
+        }
+        for _, s in ipairs(scratchpads) do
+            hl.bind(mainMod .. " + ALT + " .. s.key, function()
+                local wins = hl.get_workspace_windows("special:" .. s.name)
+                if wins == nil or #wins == 0 then
+                    hl.dispatch(hl.dsp.exec_cmd(s.cmd))
+                else
+                    hl.dispatch(hl.dsp.workspace.toggle_special(s.name))
+                end
+            end)
             hl.bind(
-                mainMod .. " + ALT + SHIFT + " .. i,
-                hl.dsp.window.move({ workspace = "special:" .. scratchpad, follow = false })
+                mainMod .. " + ALT + SHIFT + " .. s.key,
+                hl.dsp.window.move({ workspace = "special:" .. s.name, follow = false })
             )
         end
 
         hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("zen0x-capture-screenshot region"))
+        hl.bind(mainMod .. " + CTRL + S", hl.dsp.exec_cmd("zen0x-capture-screenshot window"))
+        hl.bind("CTRL + Print", hl.dsp.exec_cmd("zen0x-capture-screenshot fullscreen"))
+        hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("zen0x-capture-screenrecording region"))
+        hl.bind(mainMod .. " + CTRL + R", hl.dsp.exec_cmd("zen0x-capture-screenrecording fullscreen"))
+        hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("zen0x-toggle-nightlight"))
+        hl.bind(mainMod .. " + CTRL + Escape", hl.dsp.exec_cmd("systemctl suspend"))
         hl.bind(mainMod .. " + ALT + A", hl.dsp.exec_cmd("easyeffects"))
 
         hl.bind("SUPER + LEFT", hl.dsp.focus({ direction = "l" }))
@@ -68,7 +89,7 @@
         hl.bind("SUPER + SHIFT + DOWN", hl.dsp.window.swap({ direction = "d" }))
 
         hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-        hl.bind(mainMod .. " + SHIFT + V", hl.dsp.window.float({ action = "toggle" }))
+        hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("zen0x-clipboard"))
         hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
         hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
         hl.bind(mainMod .. " + Tab", function()
