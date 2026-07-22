@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="$(cd -- "$(dirname -- "$(readlink -f -- "$0")")/.." && pwd)"
-
 ENTRIES=(
     "  Lock"
     "  Suspend"
@@ -13,7 +11,7 @@ ENTRIES=(
 )
 
 selected=$(printf '%s\n' "${ENTRIES[@]}" \
-    | rofi -dmenu -p "")
+    | walker --dmenu --placeholder "Power")
 
 case "$selected" in
     *Lock)      hyprlock ;;

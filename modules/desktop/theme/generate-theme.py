@@ -7,12 +7,18 @@ from pathlib import Path
 
 
 TEMPLATE_TARGETS = [
+    ("templates/btop/theme.theme.tpl",         "~/.config/btop/themes/zen0x-current.theme"),
     ("templates/kitty/colors.conf.tpl",        "~/.config/kitty/colors.conf"),
+    ("templates/zsh/fzf-theme.zsh.tpl",        "~/.config/zen0x/fzf-theme.zsh"),
+    ("templates/hyprland/colors.conf.tpl",     "~/.config/hypr/colors.conf"),
     ("templates/hyprland/colors.lua.tpl",      "~/.config/hypr/colors.lua"),
     ("templates/hyprland/hyprlock.conf.tpl",   "~/.config/hypr/hyprlock.conf"),
     ("templates/waybar/colors.css.tpl",        "~/.config/waybar/colors.css"),
+    ("templates/rofi/colors.rasi.tpl",         "~/.config/rofi/colors.rasi"),
+    ("templates/fastfetch/config.jsonc.tpl",   "~/.config/fastfetch/config.jsonc"),
     ("templates/swayosd/style.css.tpl",        "~/.config/swayosd/style.css"),
     ("templates/swayosd/config.toml.tpl",      "~/.config/swayosd/config.toml"),
+    ("templates/swaync/colors.css.tpl",        "~/.config/swaync/colors.css"),
 ]
 
 

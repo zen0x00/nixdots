@@ -1,77 +1,87 @@
 {
   flake.modules.homeManager.walker =
-    { pkgs, ... }:
+    { inputs, pkgs, ... }:
 
     {
-      home.packages = [ pkgs.walker ];
+      imports = [
+        inputs.walker.homeManagerModules.default
+      ];
 
-      xdg.configFile."walker/config.toml".text = ''
-        [activation]
-        close_when_open = true
+      programs.elephant = {
+        enable = true;
+        providers = [
+          "desktopapplications"
+          "runner"
+          "clipboard"
+          "websearch"
+          "files"
+          "providerlist"
+          "windows"
+          "symbols"
+          "calc"
+        ];
+      };
 
-        [ui]
-        width = 600
-        hide_when_single_result = false
-        centered = true
+      programs.walker = {
+        enable = true;
+        runAsService = true;
 
-        [[modules]]
-        name = "applications"
-        placeholder = "Search apps..."
+        config = {
+          activation.close_when_open = true;
+          theme = "catppuccin";
+          ui = {
+            width = 600;
+            hide_when_single_result = false;
+            centered = true;
+          };
+        };
 
-        [[modules]]
-        name = "runner"
-        placeholder = "Run command..."
+        themes.catppuccin.style = ''
+          #window {
+            background: rgba(30, 30, 46, 0.92);
+            border: 1px solid rgba(49, 50, 68, 0.8);
+            border-radius: 16px;
+          }
 
-        [[modules]]
-        name = "clipboard"
-        placeholder = "Search clipboard..."
-      '';
+          #search {
+            background: transparent;
+            color: #cdd6f4;
+            font-family: "Maple Mono NF";
+            font-size: 16px;
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(49, 50, 68, 0.5);
+          }
 
-      xdg.configFile."walker/themes/velvet-mango.css".text = ''
-        #window {
-          background: rgba(37, 20, 40, 0.92);
-          border: 1px solid rgba(107, 61, 122, 0.6);
-          border-radius: 16px;
-        }
+          #search:focus { outline: none; }
 
-        #search {
-          background: transparent;
-          color: #f2dfc8;
-          font-family: "Maple Mono NF";
-          font-size: 16px;
-          padding: 14px 18px;
-          border-bottom: 1px solid rgba(107, 61, 122, 0.3);
-        }
+          #results {
+            background: transparent;
+            padding: 6px;
+          }
 
-        #search:focus { outline: none; }
+          .result {
+            background: transparent;
+            color: #cdd6f4;
+            border-radius: 10px;
+            padding: 8px 12px;
+          }
 
-        #results {
-          background: transparent;
-          padding: 6px;
-        }
+          .result:selected,
+          .result:hover {
+            background: rgba(137, 180, 250, 0.15);
+            color: #89b4fa;
+          }
 
-        .result {
-          background: transparent;
-          color: #f2dfc8;
-          border-radius: 10px;
-          padding: 8px 12px;
-        }
+          .result .name {
+            font-family: "Maple Mono NF";
+            font-size: 14px;
+          }
 
-        .result:selected,
-        .result:hover {
-          background: rgba(247, 163, 92, 0.15);
-          color: #f7a35c;
-        }
-
-        .result .name {
-          font-family: "Maple Mono NF";
-          font-size: 14px;
-        }
-
-        .result .desc {
-          font-size: 12px;
-          color: #7a5585;
-        }
-      '';
+          .result .desc {
+            font-size: 12px;
+            color: #6c7086;
+          }
+        '';
+      };
     };
 }

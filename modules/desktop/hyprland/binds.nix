@@ -20,7 +20,7 @@
         hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(programs.browser))
         hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 
-        hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("walker"))
+        hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("uwsm-app -- walker"))
         hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
         hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("zeditor"))
         hl.bind("SUPER + SHIFT + X", hl.dsp.exec_cmd("kitty --class org.helix.editor -e hx"))

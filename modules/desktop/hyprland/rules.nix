@@ -14,6 +14,20 @@
           name = "walker-blur",
           match = { namespace = "^walker$" },
           blur = true,
+          ignore_alpha = 0.5,
+        })
+
+        hl.layer_rule({
+          name = "swayosd-blur",
+          match = { namespace = "^swayosd$" },
+          blur = true,
+          ignore_alpha = 0.2,
+        })
+
+        hl.layer_rule({
+          name = "mako-blur",
+          match = { namespace = "^mako$" },
+          blur = true,
           ignore_alpha = 0.2,
         })
 

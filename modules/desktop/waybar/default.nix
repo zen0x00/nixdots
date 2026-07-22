@@ -21,46 +21,42 @@
             gtk-layer-shell = true;
 
             modules-left = [ "hyprland/workspaces" ];
-            modules-center = [ "hyprland/window" ];
+            modules-center = [ "clock" ];
             modules-right = [
-              "group/tray-expander"
-              "pulseaudio"
+              "tray"
               "network"
               "bluetooth"
-              "clock"
+              "pulseaudio"
             ];
 
             "hyprland/workspaces" = {
+              on-click = "activate";
               format = "{icon}";
               format-icons = {
-                active = "󰮯";
-                urgent = "*";
-                default = "*";
+                default = "";
+                "1" = "1";
+                "2" = "2";
+                "3" = "3";
+                "4" = "4";
+                "5" = "5";
+                "6" = "6";
+                "7" = "7";
+                "8" = "8";
+                "9" = "9";
+                "10" = "0";
+                active = "󱓻";
               };
-              persistent-workspaces."*" = [
-                1
-                2
-                3
-                4
-                5
-              ];
-              active-only = false;
-              all-outputs = true;
-              on-click = "activate";
-              on-scroll-up = "hyprctl dispatch workspace e+1";
-              on-scroll-down = "hyprctl dispatch workspace e-1";
-            };
-
-            "hyprland/window" = {
-              format = "{title}";
-              max-length = 60;
-              separate-outputs = true;
-              rewrite."" = "Desktop";
+              persistent-workspaces = {
+                "1" = [];
+                "2" = [];
+                "3" = [];
+                "4" = [];
+                "5" = [];
+              };
             };
 
             clock = {
-              format = "{:%I:%M %p}";
-              format-alt = "{:%A, %B %d}";
+              format = "{:%I:%M %p  ·  %a, %b %d}";
               tooltip-format = "<tt>{calendar}</tt>";
               calendar = {
                 mode = "month";
@@ -75,23 +71,6 @@
               icon-size = 15;
               spacing = 6;
               show-passive-items = false;
-            };
-
-            "group/tray-expander" = {
-              orientation = "inherit";
-              drawer = {
-                transition-duration = 600;
-                children-class = "tray-group-item";
-              };
-              modules = [
-                "custom/expand-icon"
-                "tray"
-              ];
-            };
-
-            "custom/expand-icon" = {
-              format = "";
-              tooltip = false;
             };
 
             pulseaudio = {
@@ -148,9 +127,12 @@
         style = ''
           @import "colors.css";
 
+          @define-color window_bg_color #1e1e2e;
+
           * {
-            font-family: "Maple Mono NF", "Symbols Nerd Font Mono";
-            font-size: 13px;
+            font-family: "JetBrainsMono Nerd Font Propo", "Symbols Nerd Font Mono";
+            font-size: 14px;
+            font-weight: 600;
             border: none;
             border-radius: 0;
             min-height: 0;
@@ -167,64 +149,43 @@
           }
 
           .modules-left { padding-left: 10px; }
-          .modules-right { padding-right: 8px; }
-
-          #workspaces { padding: 0 5px; }
+          .modules-right {
+            padding-right: 10px;
+          }
 
           #workspaces button {
-            padding: 0;
-            margin: 0 2px;
-            min-width: 16px;
-            min-height: 26px;
-            border-radius: 999px;
-            color: alpha(@fg, 0.55);
-            background: transparent;
-            border: 0;
-            font-size: 18px;
-            font-weight: 700;
-            transition: min-width 180ms ease, color 180ms ease;
-          }
-
-          #workspaces button.active {
-            min-width: 24px;
-            color: @accent;
-            background: transparent;
-          }
-
-          #workspaces button.occupied:not(.active) {
+            all: initial;
             color: @fg;
+            font-family: "JetBrainsMono Nerd Font Propo", "Symbols Nerd Font Mono";
+            font-size: 12px;
+            padding: 0 6px;
+            margin: 0 1.5px;
+            min-width: 9px;
           }
 
-          #workspaces button.urgent {
-            color: @danger;
-          }
-
-          #window {
-            color: @fg;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 0 8px;
+          #workspaces button.empty {
+            opacity: 0.5;
           }
 
           #pulseaudio,
           #network,
           #bluetooth {
             color: @fg;
-            font-size: 12px;
-            padding: 0 8px;
-            border-radius: 14px;
+            font-size: 16px;
+            padding: 0 6px;
+            margin: 0 4px;
           }
 
           #clock {
             color: @fg;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             padding: 0 8px;
-            border-radius: 14px;
           }
 
-          #tray-expander { padding: 0 4px; }
-          #tray { padding: 0 8px; }
+          #tray {
+            padding: 0 8px;
+          }
 
           #tray > .passive { -gtk-icon-effect: dim; }
           #tray > .needs-attention {
