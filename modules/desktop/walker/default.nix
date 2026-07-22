@@ -29,58 +29,88 @@
         config = {
           activation.close_when_open = true;
           theme = "catppuccin";
+          hide_action_hints = true;
+          hide_quick_activation = true;
           ui = {
             width = 600;
             hide_when_single_result = false;
             centered = true;
-          };
+            };
         };
 
         themes.catppuccin.style = ''
-          #window {
-            background: rgba(30, 30, 46, 0.92);
-            border: 1px solid rgba(49, 50, 68, 0.8);
+          @define-color window_bg_color  #1e1e2e;
+          @define-color accent_bg_color  #313244;
+          @define-color theme_fg_color   #cdd6f4;
+          @define-color accent_color     #89b4fa;
+          @define-color muted_color      #6c7086;
+          @define-color error_bg_color   #f38ba8;
+          @define-color error_fg_color   #1e1e2e;
+
+          * { all: unset; }
+
+          .box-wrapper {
+            background: alpha(@window_bg_color, 0.8);
+            border: 1px solid alpha(@accent_bg_color, 0.6);
             border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
           }
 
-          #search {
+          .input {
             background: transparent;
-            color: #cdd6f4;
+            color: @theme_fg_color;
+            caret-color: @accent_color;
             font-family: "Maple Mono NF";
             font-size: 16px;
-            padding: 14px 18px;
-            border-bottom: 1px solid rgba(49, 50, 68, 0.5);
+            padding: 10px 14px 14px 14px;
           }
 
-          #search:focus { outline: none; }
-
-          #results {
-            background: transparent;
-            padding: 6px;
+          .input placeholder {
+            color: @muted_color;
           }
 
-          .result {
-            background: transparent;
-            color: #cdd6f4;
+          .list {
+            color: @theme_fg_color;
+          }
+
+          .item-box {
             border-radius: 10px;
-            padding: 8px 12px;
+            padding: 10px 12px;
           }
 
-          .result:selected,
-          .result:hover {
-            background: rgba(137, 180, 250, 0.15);
-            color: #89b4fa;
+          child:selected .item-box,
+          row:selected .item-box {
+            background: alpha(@accent_color, 0.15);
           }
 
-          .result .name {
-            font-family: "Maple Mono NF";
-            font-size: 14px;
-          }
-
-          .result .desc {
+          .item-subtext {
             font-size: 12px;
-            color: #6c7086;
+            color: @muted_color;
+            opacity: 1;
           }
+
+          child:selected .item-subtext,
+          row:selected .item-subtext {
+            color: alpha(@accent_color, 0.7);
+          }
+
+          .keybinds {
+            opacity: 0;
+            padding: 0;
+            margin: 0;
+            min-height: 0;
+            font-size: 0;
+          }
+
+          .error {
+            background: @error_bg_color;
+            color: @error_fg_color;
+            padding: 10px;
+            border-radius: 8px;
+          }
+
+          scrollbar { opacity: 0; }
         '';
       };
     };

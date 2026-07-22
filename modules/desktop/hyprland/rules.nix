@@ -181,6 +181,16 @@
           float = true,
         })
 
+        hl.window_rule({
+          name = "float-tui-tools",
+          match = {
+            class = "^(org.zen0x.impala|org.zen0x.wiremix|org.zen0x.bluetui)$",
+          },
+          float = true,
+          center = true,
+          size = { 1100, 700 },
+        })
+
         -- Persistent workspaces 1-5
         for i = 1, 5 do
           hl.workspace_rule({

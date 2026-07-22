@@ -37,6 +37,7 @@
                     new_optimizations = true,
                     vibrancy = 0.22,
                     vibrancy_darkness = 0.35,
+                    xray = true,
                 },
             },
             animations = {

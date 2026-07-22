@@ -27,6 +27,8 @@
               "network"
               "bluetooth"
               "pulseaudio"
+              "battery"
+              "custom/power"
             ];
 
             "hyprland/workspaces" = {
@@ -81,14 +83,14 @@
               scroll-step = 5;
               on-scroll-up = "swayosd-client --output-volume raise";
               on-scroll-down = "swayosd-client --output-volume lower";
-              format-muted = "";
+              format-muted = "󰝟";
               format-icons = {
-                headphone = "";
-                headset = "";
+                headphone = "󰋋";
+                headset = "󰋎";
                 default = [
-                  ""
-                  ""
-                  ""
+                  "󰕿"
+                  "󰖀"
+                  "󰕾"
                 ];
               };
             };
@@ -102,7 +104,7 @@
                 "󰤨"
               ];
               format = "{icon}";
-              format-wifi = "{icon}";
+              format-wifi = "{icon} {essid}";
               format-ethernet = "󰀂";
               format-disconnected = "󰤮";
               tooltip-format-wifi = "{essid} ({frequency} GHz)";
@@ -112,11 +114,30 @@
               on-click = "zen0x-launch-wifi";
             };
 
+            battery = {
+              format = "{icon}";
+              format-charging = "󰂄";
+              format-plugged = "󰚥";
+              format-full = "󰁹";
+              format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+              tooltip-format = "{capacity}% · {timeTo}";
+              states = {
+                warning = 30;
+                critical = 15;
+              };
+            };
+
+            "custom/power" = {
+              format = "󰐥";
+              tooltip = false;
+              on-click = "zen0x-powermenu";
+            };
+
             bluetooth = {
               format = "󰂯";
               format-disabled = "󰂲";
               format-off = "󰂲";
-              format-connected = "󰂱";
+              format-connected = "󰂱 {device_alias}";
               tooltip-format = "{status}";
               tooltip-format-connected = "{device_alias}";
               on-click = "zen0x-launch-bluetooth";
@@ -157,7 +178,7 @@
             all: initial;
             color: @fg;
             font-family: "JetBrainsMono Nerd Font Propo", "Symbols Nerd Font Mono";
-            font-size: 12px;
+            font-size: 16px;
             padding: 0 6px;
             margin: 0 1.5px;
             min-width: 9px;
@@ -169,22 +190,39 @@
 
           #pulseaudio,
           #network,
-          #bluetooth {
-            color: @fg;
+          #bluetooth,
+          #battery,
+          #custom-power,
+          #tray {
             font-size: 16px;
-            padding: 0 6px;
-            margin: 0 4px;
+            padding: 0 10px;
+            margin: 0 3px;
+          }
+
+          #pulseaudio,
+          #network,
+          #bluetooth,
+          #battery {
+            color: @fg;
           }
 
           #clock {
             color: @fg;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             padding: 0 8px;
           }
 
-          #tray {
-            padding: 0 8px;
+          #battery.warning { color: @warning; }
+          #battery.critical { color: @danger; }
+          #battery.charging { color: @success; }
+
+          #custom-power {
+            color: @danger;
+          }
+
+          #custom-power:hover {
+            color: @fg;
           }
 
           #tray > .passive { -gtk-icon-effect: dim; }
