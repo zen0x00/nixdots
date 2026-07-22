@@ -5,7 +5,6 @@
         local programs = require("programs")
 
         local mainMod = "SUPER"
-        local ipc = "noctalia msg"
 
         hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(programs.terminal))
         hl.bind(
@@ -21,14 +20,14 @@
         hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(programs.browser))
         hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen())
 
-        hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(ipc .. " panel-toggle launcher"))
-        hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(ipc .. " panel-toggle control-center"))
-        hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(ipc .. " panel-toggle wallpaper"))
-        hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd(ipc .. " settings-toggle"))
+        hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd("walker"))
         hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
         hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("zeditor"))
         hl.bind("SUPER + SHIFT + X", hl.dsp.exec_cmd("kitty --class org.helix.editor -e hx"))
-        hl.bind("SUPER + SHIFT + Escape", hl.dsp.exec_cmd(ipc .. " panel-toggle session"))
+        hl.bind("SUPER + SHIFT + Escape", hl.dsp.exec_cmd("zen0x-powermenu"))
+        hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd("zen0x-launch-audio"))
+        hl.bind("SUPER + SHIFT + B", hl.dsp.exec_cmd("zen0x-launch-bluetooth"))
+        hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("zen0x-launch-wifi"))
 
         hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "l" }))
         hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "r" }))
@@ -55,7 +54,7 @@
             )
         end
 
-        hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --raw | satty --filename -"))
+        hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("zen0x-capture-screenshot region"))
         hl.bind(mainMod .. " + ALT + A", hl.dsp.exec_cmd("easyeffects"))
 
         hl.bind("SUPER + LEFT", hl.dsp.focus({ direction = "l" }))
@@ -78,18 +77,19 @@
             end
         end)
 
-        hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region --raw | satty --filename -"))
+        hl.bind("Print", hl.dsp.exec_cmd("zen0x-capture-screenshot smart"))
         hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
         hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
         hl.bind("SUPER + mouse:272", hl.dsp.window.drag())
         hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
 
-        hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. " volume-up"))
-        hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. " volume-down"))
-        hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. " volume-mute"))
-        hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. " brightness-up"))
-        hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. " brightness-down"))
+        hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"))
+        hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"))
+        hl.bind("XF86AudioMute", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"))
+        hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("zen0x-brightness-display +5%"))
+        hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("zen0x-brightness-display 5%-"))
+        hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"))
 
         hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
         hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })

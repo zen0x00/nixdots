@@ -3,13 +3,18 @@
     {
       xdg.configFile."hypr/rules.lua".text = ''
         hl.layer_rule({
-          name = "noctalia",
-          match = {
-            namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$",
-          },
-          ignore_alpha = 0.5,
+          name = "waybar-blur",
+          match = { namespace = "^waybar$" },
           blur = true,
           blur_popups = true,
+          ignore_alpha = 0.3,
+        })
+
+        hl.layer_rule({
+          name = "walker-blur",
+          match = { namespace = "^walker$" },
+          blur = true,
+          ignore_alpha = 0.2,
         })
 
         hl.window_rule({
@@ -109,17 +114,6 @@
           float = true,
           center = true,
           size = { 900, 600 },
-        })
-
-        hl.window_rule({
-          name = "float-noctalia-settings",
-          match = {
-            class = "^(dev.noctalia.Noctalia)$",
-            title = "^Noctalia Settings$",
-          },
-          float = true,
-          center = true,
-          size = { 1600, 900 },
         })
 
         hl.window_rule({

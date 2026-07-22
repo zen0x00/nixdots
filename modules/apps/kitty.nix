@@ -21,19 +21,18 @@
           single_window_margin_width = "30 0 0 0";
           shell = "fish";
         };
-        # DMS (niri session) and noctalia (hyprland session) both write theme
-        # files at runtime; include both, whichever shell ran last wins
+        # DMS (niri session) writes dank-theme/tabs at runtime
+        # Theme engine writes colors.conf at activation
         extraConfig = ''
           include dank-theme.conf
           include dank-tabs.conf
-          include themes/noctalia.conf
+          include colors.conf
         '';
       };
 
       # pre-create runtime theme files so includes never dangle
       home.activation.kittyThemeStubs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        mkdir -p "$HOME/.config/kitty/themes"
-        for f in dank-theme.conf dank-tabs.conf themes/noctalia.conf; do
+        for f in dank-theme.conf dank-tabs.conf colors.conf; do
           [ -e "$HOME/.config/kitty/$f" ] || touch "$HOME/.config/kitty/$f"
         done
       '';

@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.packages =
-    { pkgs, inputs, ... }:
+    { pkgs, ... }:
 
     {
       home.packages = with pkgs; [
@@ -86,8 +86,7 @@
           }
         )
 
-        # Flake packages
-        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+        # (flake packages go here)
       ];
     }
 ;

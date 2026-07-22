@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -u
+
+status=0
+
+if command -v hyprctl >/dev/null 2>&1; then
+    if ! hyprctl reload; then
+        echo "Warning: Hyprland reload failed." >&2
+        status=1
+    fi
+fi
+
+if command -v pkill >/dev/null 2>&1; then
+    pkill -SIGUSR1 kitty 2>/dev/null || true
+    pkill -SIGUSR2 waybar 2>/dev/null || true
+    pkill swayosd-server 2>/dev/null || true
+fi
+
+command -v swayosd-server >/dev/null 2>&1 && swayosd-server &>/dev/null &
+
+if command -v gsettings >/dev/null 2>&1; then
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
+fi
+
+if [ "$status" -eq 0 ]; then
+    notify-send "Theme" "Reloaded successfully."
+else
+    notify-send -u critical "Theme" "Reload had errors — check logs."
+fi
+
+exit "$status"
