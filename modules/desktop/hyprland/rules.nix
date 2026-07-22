@@ -2,34 +2,48 @@
   flake.modules.homeManager.hyprland =
     {
       xdg.configFile."hypr/rules.lua".text = ''
-        hl.layer_rule({
-          name = "waybar-blur",
-          match = { namespace = "^waybar$" },
-          blur = true,
-          blur_popups = true,
-          ignore_alpha = 0.3,
-        })
+        -- ── Helpers ────────────────────────────────────────────────
+
+        -- Blurred layer surface (transparent CSS behind, see ignore_alpha)
+        local function blur_layer(name, namespace, alpha, extra)
+          local rule = {
+            name = name,
+            match = { namespace = namespace },
+            blur = true,
+            ignore_alpha = alpha,
+          }
+          for k, v in pairs(extra or {}) do rule[k] = v end
+          hl.layer_rule(rule)
+        end
+
+        -- Centered floating window, size as fraction of the monitor
+        local function float_centered(name, match, w, h, extra)
+          local rule = {
+            name = name,
+            match = match,
+            float = true,
+            center = true,
+            size = { "monitor_w*" .. w, "monitor_h*" .. h },
+          }
+          for k, v in pairs(extra or {}) do rule[k] = v end
+          hl.window_rule(rule)
+        end
+
+        -- ── Layer rules (blur for shell surfaces) ──────────────────
+
+        blur_layer("waybar-blur", "^waybar$", 0.3, { blur_popups = true })
+        blur_layer("walker-blur", "^walker$", 0.5)
+        blur_layer("swayosd-blur", "^swayosd$", 0.2)
+        blur_layer("swaync-blur", "^swaync-notification-window$", 0.5)
+        blur_layer("swaync-cc-blur", "^swaync-control-center$", 0.5)
 
         hl.layer_rule({
-          name = "walker-blur",
-          match = { namespace = "^walker$" },
-          blur = true,
-          ignore_alpha = 0.5,
+          name = "no-anim-selection",
+          match = { namespace = "selection" },
+          no_anim = true,
         })
 
-        hl.layer_rule({
-          name = "swayosd-blur",
-          match = { namespace = "^swayosd$" },
-          blur = true,
-          ignore_alpha = 0.2,
-        })
-
-        hl.layer_rule({
-          name = "mako-blur",
-          match = { namespace = "^mako$" },
-          blur = true,
-          ignore_alpha = 0.2,
-        })
+        -- ── Global window behavior ─────────────────────────────────
 
         hl.window_rule({
           name = "suppress-maximize-events",
@@ -38,28 +52,9 @@
         })
 
         hl.window_rule({
-          name = "polished-common-dialogs",
-          match = { title = "^(Open|Save|Save As|Choose|Select|File Upload)(.*)$" },
-          float = true,
-          center = true,
-          size = { "monitor_w*0.6", "monitor_h*0.65" },
-          opacity = "0.98 0.94",
-        })
-
-        hl.window_rule({
-          name = "polished-picture-in-picture",
-          match = { title = "^(Picture-in-Picture|Picture in picture)$" },
-          float = true,
-          pin = true,
-          size = { "monitor_w*0.3", "monitor_h*0.3" },
-          move = { "monitor_w*0.69", "monitor_h*0.64" },
-          opacity = "0.96 0.90",
-        })
-
-        hl.window_rule({
           name = "airy-floating-windows",
           match = { float = true },
-          rounding = 18,
+          rounding = 16,
           border_size = 3,
           opacity = "0.97 0.92",
         })
@@ -77,102 +72,52 @@
           no_focus = true,
         })
 
-        local steam_class = "^(steam|Steam|steamwebhelper)$"
+        -- ── Dialogs & popups ───────────────────────────────────────
+
+        float_centered("common-dialogs",
+          { title = "^(Open|Save|Save As|Choose|Select|File Upload)(.*)$" },
+          0.55, 0.6, { opacity = "0.98 0.94" })
 
         hl.window_rule({
-          name = "steam-floating",
-          match = { class = steam_class },
+          name = "picture-in-picture",
+          match = { title = "^(Picture-in-Picture|Picture in picture)$" },
           float = true,
-          center = true,
-          tag = "-default-opacity",
-          opacity = "1 1",
-          idle_inhibit = "fullscreen",
+          pin = true,
+          size = { "monitor_w*0.28", "monitor_h*0.28" },
+          move = { "monitor_w*0.7", "monitor_h*0.68" },
+          opacity = "0.96 0.90",
         })
 
-        hl.window_rule({
-          name = "steam-main-size",
-          match = { class = steam_class },
-          size = { 1600, 900 },
-        })
+        -- ── Floating apps ──────────────────────────────────────────
 
-        hl.window_rule({
-          name = "steam-friends-size",
-          match = { class = steam_class, title = "^Friends List$" },
-          size = { 460, 800 },
-        })
+        -- File managers / image viewer
+        float_centered("float-file-managers",
+          { class = "^(org.gnome.Nautilus|thunar|org.gnome.LoupeD)$", fullscreen = false },
+          0.6, 0.65)
 
-        hl.layer_rule({
-          name = "no-anim-selection",
-          match = { namespace = "selection" },
-          no_anim = true,
-        })
+        -- TUI utilities (network, audio, bluetooth) + floating terminal
+        float_centered("float-tui-tools",
+          { class = "^(org.zen0x.impala|org.zen0x.wiremix|org.zen0x.bluetui|org.zen0x.floating-terminal)$" },
+          0.55, 0.6)
 
-        hl.window_rule({
-          name = "floats",
-          match = {
-            class = "^(org.gnome.Nautilus|thunar|org.gnome.LoupeD)$",
-            fullscreen = false,
-          },
-          float = true,
-          center = true,
-          size = { 1100, 700 },
-        })
+        -- Small utility windows
+        float_centered("float-satty",
+          { class = "^(com.gabm.satty)$", fullscreen = false },
+          0.5, 0.6)
+        float_centered("float-android-studio-welcome",
+          { class = "^(jetbrains-studio)$", title = "^Welcome to Android Studio$", fullscreen = false },
+          0.45, 0.55)
+        float_centered("float-zed-settings",
+          { class = "dev.zed.Zed", title = "Zed — Settings", fullscreen = false },
+          0.55, 0.6)
+        float_centered("float-nwg-look",
+          { class = "^(nwg-look)$", fullscreen = false },
+          0.6, 0.7)
 
-        hl.window_rule({
-          name = "float-android-studio-welcome",
-          match = {
-            class = "^(jetbrains-studio)$",
-            title = "^Welcome to Android Studio$",
-            fullscreen = false,
-          },
-          float = true,
-          center = true,
-          size = { 900, 600 },
-        })
-
-        hl.window_rule({
-          name = "float-satty",
-          match = {
-            class = "^(com.gabm.satty)$",
-            fullscreen = false,
-          },
-          float = true,
-          center = true,
-          size = { 900, 600 },
-        })
-
-        hl.window_rule({
-          name = "float-spotify",
-          match = {
-            class = "^(Spotify)$",
-            fullscreen = false,
-          },
-          float = true,
-          center = true,
-          size = { 1600, 800 },
-        })
-
-        hl.window_rule({
-          name = "float-nwg-look",
-          match = {
-            class = "^(nwg-look)$",
-            fullscreen = false,
-          },
-          float = true,
-          center = true,
-          size = { 1200, 800 },
-        })
-
-        hl.window_rule({
-          name = "float-terminal-launcher",
-          match = {
-            class = "^(org.zen0x.floating-terminal)$",
-            fullscreen = false,
-          },
-          float = true,
-          center = true,
-          size = { 1100, 700 },
-        })
+        -- Media
+        float_centered("float-spotify",
+          { class = "^(Spotify)$", fullscreen = false },
+          0.75, 0.75)
 
         hl.window_rule({
           name = "move-hyprland-run",
@@ -181,15 +126,41 @@
           float = true,
         })
 
+        -- ── Steam ──────────────────────────────────────────────────
+
+        local steam_class = "^(steam|Steam|steamwebhelper)$"
+
+        float_centered("steam-floating",
+          { class = steam_class },
+          0.8, 0.8,
+          {
+            tag = "-default-opacity",
+            opacity = "1 1",
+            idle_inhibit = "fullscreen",
+          })
+
         hl.window_rule({
-          name = "float-tui-tools",
-          match = {
-            class = "^(org.zen0x.impala|org.zen0x.wiremix|org.zen0x.bluetui)$",
-          },
-          float = true,
-          center = true,
-          size = { 1100, 700 },
+          name = "steam-friends-size",
+          match = { class = steam_class, title = "^Friends List$" },
+          size = { "monitor_w*0.24", "monitor_h*0.74" },
         })
+
+        -- ── Scratchpads ────────────────────────────────────────────
+
+        -- Pin scratchpad apps (launched by the Super+Alt binds) to their
+        -- special workspace, floating and centered
+        for _, s in ipairs({ "term", "notes", "files", "mixer", "monitor" }) do
+          hl.window_rule({
+            name = "scratch-" .. s,
+            match = { class = "^org%.zen0x%.scratch-" .. s .. "$" },
+            workspace = "special:" .. s,
+            float = true,
+            center = true,
+            size = { "monitor_w*0.65", "monitor_h*0.65" },
+          })
+        end
+
+        -- ── Workspaces ─────────────────────────────────────────────
 
         -- Persistent workspaces 1-5
         for i = 1, 5 do
@@ -199,36 +170,22 @@
           })
         end
 
-        hl.window_rule({
-          name = "ws1",
-          match = { class = "^(zen|Zen)$" },
-          workspace = "1",
-        })
-        hl.window_rule({
-          name = "ws2",
-          match = { class = "^(kitty|Kitty|Alacritty|WezTerm|foot)$" },
-          workspace = "2",
-        })
-        hl.window_rule({
-          name = "ws3",
-          match = { class = "^(dev%.zed%.Zed|org%.helix%.editor)$" },
-          workspace = "3",
-        })
-        hl.window_rule({
-          name = "ws4",
-          match = { class = "^(Spotify)$" },
-          workspace = "4",
-        })
-        hl.window_rule({
-          name = "ws5",
-          match = { class = "^(steam|Steam|heroic|Heroic)$" },
-          workspace = "5",
-        })
-        hl.window_rule({
-          name = "ws6",
-          match = { title = "^(.*%.exe|.*game|.*Game)$" },
-          workspace = "6",
-        })
+        local workspace_assignments = {
+          { ws = "1", match = { class = "^(zen|Zen)$" } },
+          { ws = "2", match = { class = "^(kitty|Kitty|Alacritty|WezTerm|foot)$" } },
+          { ws = "3", match = { class = "^(dev%.zed%.Zed|org%.helix%.editor)$" } },
+          { ws = "4", match = { class = "^(Spotify)$" } },
+          { ws = "5", match = { class = "^(steam|Steam|heroic|Heroic)$" } },
+          { ws = "6", match = { title = "^(.*%.exe|.*game|.*Game)$" } },
+        }
+
+        for _, a in ipairs(workspace_assignments) do
+          hl.window_rule({
+            name = "ws" .. a.ws,
+            match = a.match,
+            workspace = a.ws,
+          })
+        end
       '';
     }
 ;
