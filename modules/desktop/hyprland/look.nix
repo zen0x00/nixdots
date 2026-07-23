@@ -15,12 +15,9 @@
             decoration = {
                 rounding = 16,
                 rounding_power = 2.6,
-                active_opacity = 0.9,
-                inactive_opacity = 0.85,
-                fullscreen_opacity = 1.0,
-                dim_inactive = true,
-                dim_strength = 0.12,
-                dim_special = 0.18,
+                active_opacity = 0.85,
+                inactive_opacity = 0.9,
+                fullscreen_opacity = 0.97,
                 shadow = {
                     enabled = true,
                     range = 25,
