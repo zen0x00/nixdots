@@ -4,7 +4,7 @@ slug = "nord"
 gtk_theme = "Abyssal-Nord"
 icon_theme = "Yaru-blue-dark"
 zed_theme = "Abyssal Nord"
-wallpaper = "wallpapers/astronaut.png"
+wallpaper = "wallpapers/nord.png"
 variant = "dark"
 topbar = "dark"
 
