@@ -45,7 +45,7 @@
           * { all: unset; font-family: "Maple Mono NF"; }
 
           .box-wrapper {
-            background: alpha(@window_bg_color, 0.8);
+            background: alpha(@window_bg_color, 0.6);
             border: 1px solid alpha(@accent_bg_color, 0.6);
             border-radius: 16px;
             padding: 12px;
