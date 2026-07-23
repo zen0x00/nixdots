@@ -12,7 +12,11 @@
     in
     {
       home.activation.generateTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        ${python}/bin/python3 ${themeDir}/generate-theme.py catppuccin
+        THEME=$(cat "$HOME/.current_theme" 2>/dev/null || echo catppuccin)
+        if [ ! -f ${themeDir}/palettes/"$THEME".toml ]; then
+          THEME=catppuccin
+        fi
+        ${python}/bin/python3 ${themeDir}/generate-theme.py "$THEME"
       '';
 
       home.packages = [
@@ -32,6 +36,7 @@
           zen0x-generate-theme "$THEME"
           mkdir -p "$HOME/.config/zen0x"
           printf '%s\n' "$THEME" > "$HOME/.config/zen0x/current-theme"
+          ln -sfn "$HOME/.config/zen0x/current-theme" "$HOME/.current_theme"
 
           # GTK: live-switch via gsettings (settings.ini/gtk.css already
           # rewritten by the generator from palette [meta])
@@ -39,19 +44,22 @@
           gtk_theme=$(sed -n 's/^gtk_theme = "\(.*\)"/\1/p' "$toml")
           icon_theme=$(sed -n 's/^icon_theme = "\(.*\)"/\1/p' "$toml")
           zed_theme=$(sed -n 's/^zed_theme = "\(.*\)"/\1/p' "$toml")
+          # dconf write, not gsettings: the bare glib gsettings binary has no
+          # schemas installed so its writes silently no-op; the settings portal
+          # (and thus libadwaita/Zen) reads dconf directly.
           if [ -n "$gtk_theme" ]; then
-            ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme" || true
+            ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/gtk-theme "'$gtk_theme'" || true
           fi
           if [ -n "$icon_theme" ]; then
-            ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface icon-theme "$icon_theme" || true
+            ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/icon-theme "'$icon_theme'" || true
           fi
 
           # Light/dark preference follows the palette variant
           variant=$(sed -n 's/^variant = "\(.*\)"/\1/p' "$toml")
           if [ "$variant" = "light" ]; then
-            ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface color-scheme "prefer-light" || true
+            ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-light'" || true
           else
-            ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" || true
+            ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'" || true
           fi
 
           # Wallpaper per theme (optional key; relative paths live in the repo)

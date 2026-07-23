@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1784715566,
-        "narHash": "sha256-1pICEqIQpA8ZdpZxyxy6THzsiLvu5ydHNKsC+7mpYKU=",
+        "lastModified": 1784787846,
+        "narHash": "sha256-i1yqJCWVLq7lcfYiqznWAjLsAjqn5heE+h4zIYMxFVE=",
         "owner": "rxyenv",
         "repo": "abyssal-gtk-theme",
-        "rev": "4e633eb31c7b9408b9302ea79ab496525e787cd9",
+        "rev": "659771b4975b50d299523e9981be715c49402d33",
         "type": "github"
       },
       "original": {
