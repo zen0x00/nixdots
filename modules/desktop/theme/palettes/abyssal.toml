@@ -1,8 +1,8 @@
 [meta]
 name = "Abyssal"
 slug = "abyssal"
-gtk_theme = "Abyssal-Dark"
-icon_theme = "Yaru-purple-dark"
+gtk_theme = "Abyssal-Default"
+icon_theme = "Yaru-blue-dark"
 zed_theme = "Abyssal Dark"
 wallpaper = "wallpapers/abyssal.jpg"
 variant = "dark"
