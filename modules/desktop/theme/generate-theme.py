@@ -14,7 +14,6 @@ TEMPLATE_TARGETS = [
     ("templates/hyprland/colors.lua.tpl",      "~/.config/hypr/colors.lua"),
     ("templates/hyprland/hyprlock.conf.tpl",   "~/.config/hypr/hyprlock.conf"),
     ("templates/waybar/colors.css.tpl",        "~/.config/waybar/colors.css"),
-    ("templates/rofi/colors.rasi.tpl",         "~/.config/rofi/colors.rasi"),
     ("templates/swayosd/style.css.tpl",        "~/.config/swayosd/style.css"),
     ("templates/swayosd/config.toml.tpl",      "~/.config/swayosd/config.toml"),
     ("templates/swaync/colors.css.tpl",        "~/.config/swaync/colors.css"),

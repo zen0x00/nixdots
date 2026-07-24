@@ -59,7 +59,6 @@
           wiremix
           bluetui
           impala
-          rofi
           swayosd
           swaynotificationcenter
           swaybg

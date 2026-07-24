@@ -56,7 +56,6 @@
         ffmpegthumbnailer
         poppler-utils
         satty
-        hyprshot
 
 
         # Theming
