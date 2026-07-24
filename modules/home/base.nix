@@ -11,5 +11,10 @@
       enable = true;
       nix-direnv.enable = true;
     };
+
+    xdg.userDirs = {
+      enable = true;
+      createDirectories = true;
+    };
   };
 }

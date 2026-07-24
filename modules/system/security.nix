@@ -1,11 +1,20 @@
 {
   flake.modules.nixos.security =
-    { pkgs, ... }:
+    { ... }:
 
     {
       security.polkit.enable = true;
 
-      environment.systemPackages = [ pkgs.polkit_gnome ];
+      security.pam.services.hyprlock = {};
+
+      security.pam.services.ly.enableGnomeKeyring = true;
+
+      programs.dconf.enable = true;
+
+      programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+      };
     }
 ;
 }

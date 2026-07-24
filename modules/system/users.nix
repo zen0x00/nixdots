@@ -16,6 +16,9 @@
         extraGroups = [
           "wheel"
           "networkmanager"
+          "video"
+          "input"
+          "audio"
         ];
       };
     }

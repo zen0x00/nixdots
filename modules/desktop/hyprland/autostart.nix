@@ -1,12 +1,14 @@
 {
   flake.modules.homeManager.hyprland =
     {
+      services.hyprpolkitagent.enable = true;
+
       xdg.configFile."hypr/autostart.lua".text = ''
         hl.on("hyprland.start", function()
             hl.exec_cmd("uwsm app -- swaync")
             -- restore last theme's wallpaper (symlink kept by zen0x-set-wallpaper)
             hl.exec_cmd([[sh -c 'zen0x-set-wallpaper "$(readlink -f ~/.config/hypr/wallpaper.jpg 2>/dev/null || echo ~/Pictures/Wallpapers/dragon.jpg)"']])
-            hl.exec_cmd("/run/current-system/sw/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+            hl.exec_cmd("uwsm app -- udiskie --no-automount --smart-tray")
             hl.exec_cmd("wl-paste --type text --watch cliphist store")
             hl.exec_cmd("wl-paste --type image --watch cliphist store")
             hl.exec_cmd("hyprctl setcursor Sunset-cursors 24")

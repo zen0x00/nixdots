@@ -48,6 +48,7 @@
         opencode
 
         # Files
+        udiskie
         nautilus
         file-roller
         gnome-disk-utility
@@ -61,6 +62,7 @@
         # Theming
         pywalfox-native
         nwg-look
+        qgnomeplatform-qt6
 
         # Editors
         zed-editor

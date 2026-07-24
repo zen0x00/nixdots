@@ -12,6 +12,20 @@
       services.tuned.enable = true;
 
       services.upower.enable = true;
+
+      services.gvfs.enable = true;
+
+      services.udisks2.enable = true;
+
+      services.colord.enable = true;
+
+      services.gnome.at-spi2-core.enable = true;
+
+      services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
+      };
     }
 ;
 }
