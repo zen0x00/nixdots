@@ -21,14 +21,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+    millennium = {
+      url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    abyssal-gtk-theme.url = "github:rxyenv/abyssal-gtk-theme";
+    abyssal-gtk-theme = {
+      url = "github:rxyenv/abyssal-gtk-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     abyssal-zed-themes = {
       url = "github:rxyenv/abyssal-zed-themes";

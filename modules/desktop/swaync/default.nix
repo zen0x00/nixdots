@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.swaync =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
 
     {
       services.swaync = {
@@ -53,7 +53,7 @@
         };
 
         style = ''
-          @import "/home/aman/.config/swaync/colors.css";
+          @import "${config.home.homeDirectory}/.config/swaync/colors.css";
 
           * {
             color: @fg;

@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.walker =
-    { inputs, pkgs, ... }:
+    { inputs, pkgs, config, ... }:
 
     {
       imports = [
@@ -40,7 +40,7 @@
         };
 
         themes.zen0x.style = ''
-          @import "/home/aman/.config/walker/colors.css";
+          @import "${config.home.homeDirectory}/.config/walker/colors.css";
 
           * { all: unset; font-family: "Maple Mono NF"; }
 

@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.nix =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
 
     {
       nix.settings.experimental-features = [
@@ -30,7 +30,7 @@
 
       programs.nh = {
         enable = true;
-        flake = "/home/aman/nixdots";
+        flake = "${config.users.users.aman.home}/nixdots";
         clean.enable = true;
       };
 
