@@ -119,6 +119,15 @@
           { class = "^(nwg-look)$", fullscreen = false },
           0.6, 0.7)
 
+        -- LocalSend: portrait floating
+        hl.window_rule({
+          name = "float-localsend",
+          match = { class = "^(localsend_app)$", fullscreen = false },
+          float = true,
+          center = true,
+          size = { 400, 900 },
+        })
+
         -- Media
         float_centered("float-spotify",
           { class = "^(Spotify)$", fullscreen = false },
